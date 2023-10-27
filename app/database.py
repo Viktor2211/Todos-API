@@ -14,6 +14,10 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+SECRET_KEY = 'ldghl304skfj304ifl'
+ALGORITHM = 'HS256'
+
+
 def get_db():
     db = SessionLocal()
     try:
