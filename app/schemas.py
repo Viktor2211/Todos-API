@@ -8,6 +8,7 @@ class UserRequest(BaseModel):
     last_name: str
     password: str
     role: str
+    phone_number:str
 
 
 class TodoRequest(BaseModel):
@@ -20,3 +21,12 @@ class TodoRequest(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+
+class UserVerification(BaseModel):
+    current_password: str = Field(min_length=4)
+    new_password: str = Field(min_length=4)
+
+
+class UpdatePhone(BaseModel):
+    new_number: str = Field(min_length=8)
