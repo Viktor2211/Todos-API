@@ -5,10 +5,10 @@ from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import Depends
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./todosapp.db'
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
-                       'check_same_thread': False})
+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:2211@localhost/TodoApplicationDataBase'
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

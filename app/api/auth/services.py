@@ -2,12 +2,12 @@ import datetime
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
-from database import db_dependency
+from app.database import db_dependency
 from jose import jwt, JWTError
 from passlib.context import CryptContext
-from models import User
+from app.models import User
 from fastapi.security import OAuth2PasswordBearer
-from database import SECRET_KEY, ALGORITHM
+from app.database import SECRET_KEY, ALGORITHM
 
 
 bcrypt_context = CryptContext(schemes=['bcrypt'])

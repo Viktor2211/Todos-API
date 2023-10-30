@@ -1,11 +1,10 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
-from models import User
-from schemas import UserRequest, Token
+from app.schemas import Token
 from typing import Annotated
 from fastapi.security import OAuth2PasswordRequestForm
-from api.auth.services import bcrypt_context, AuthService
-from database import db_dependency
+from app.api.auth.services import bcrypt_context, AuthService
+from app.database import db_dependency
 
 
 router = APIRouter(
@@ -14,26 +13,6 @@ router = APIRouter(
 )
 
 user_dependency = Annotated[dict, Depends(AuthService().get_current_user)]
-
-
-@router.post("/create_user/", status_code=status.HTTP_201_CREATED)
-async def create_user(db: db_dependency, user_request: UserRequest):
-    user = User(
-        email=user_request.email,
-        username=user_request.username,
-        first_name=user_request.first_name,
-        last_name=user_request.last_name,
-        role=user_request.role,
-        hashed_password=bcrypt_context.hash(user_request.password),
-        is_active=True
-    )
-    db.add(user)
-    db.commit()
-
-
-@router.post("/all_users/")
-async def get_all_users(db: db_dependency):
-    return db.query(User).all()
 
 
 @router.post("/token/", response_model=Token)
